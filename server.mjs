@@ -98,42 +98,6 @@ let deals = [
   },
 ];
 
-const flashDeals = [
-  {
-    id: 101,
-    title: "Dyson V12 Detect Slim Cordless Vacuum",
-    merchant: "CleanHouse",
-    category: "Home",
-    salePrice: 329,
-    listPrice: 549,
-    expiresInHours: 8,
-    stock: "Flash drop",
-    color: "#e3edf0",
-  },
-  {
-    id: 102,
-    title: "Nintendo Switch OLED Console Bundle",
-    merchant: "PlayPort",
-    category: "Tech",
-    salePrice: 269,
-    listPrice: 349,
-    expiresInHours: 10,
-    stock: "12 left",
-    color: "#e8dddd",
-  },
-  {
-    id: 103,
-    title: "Lisbon Boutique Hotel Weekend",
-    merchant: "StayScout",
-    category: "Travel",
-    salePrice: 156,
-    listPrice: 290,
-    expiresInHours: 6,
-    stock: "2 rooms",
-    color: "#dcecdf",
-  },
-];
-
 const categoryColors = {
   Fashion: "#e7e2f2",
   Food: "#efe1cb",
@@ -184,19 +148,6 @@ function isValidDeal(deal) {
     deal.listPrice > deal.salePrice &&
     deal.expiresInHours > 0
   );
-}
-
-function rotateDemoDeal() {
-  const next = flashDeals[Math.floor(Math.random() * flashDeals.length)];
-  const existingIndex = deals.findIndex((deal) => deal.id === next.id);
-
-  if (existingIndex >= 0) {
-    deals = deals.filter((deal) => deal.id !== next.id);
-  } else {
-    deals = [{ ...next, salePrice: next.salePrice - Math.floor(Math.random() * 18) }, ...deals].slice(0, 10);
-  }
-
-  broadcastDeals();
 }
 
 async function serveStatic(request, response) {
@@ -272,7 +223,5 @@ const server = createServer(async (request, response) => {
 
 server.listen(port, "0.0.0.0", () => {
   console.log(`DealFinder live server running on port ${port}.`);
-  console.log("Demo flash deals will appear or disappear every 8 seconds.");
+  console.log("Add deals through the app or POST /api/deals to update connected browsers.");
 });
-
-setInterval(rotateDemoDeal, 8000);
