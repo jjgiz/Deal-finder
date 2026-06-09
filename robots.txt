@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://deal-finder-1-kxmn.onrender.com/sitemap.xml

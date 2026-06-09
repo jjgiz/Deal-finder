@@ -142,6 +142,8 @@ const contentTypes = {
   ".css": "text/css",
   ".html": "text/html",
   ".js": "text/javascript",
+  ".txt": "text/plain",
+  ".xml": "application/xml",
 };
 
 function sendJson(response, data) {

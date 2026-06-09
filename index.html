@@ -3,10 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DealFinder</title>
+    <title>DealFinder | UK Deals, Tech Discounts & Amazon Offers</title>
     <meta
       name="description"
-      content="DealFinder tracks hand-picked online deals, discount drops, travel offers, and retail savings in one searchable live feed."
+      content="Find hand-picked UK deals on tech, home appliances, gaming accessories, and Amazon offers. Compare sale prices, discounts, and live deal links."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://deal-finder-1-kxmn.onrender.com/" />
+    <meta property="og:title" content="DealFinder | UK Deals, Tech Discounts & Amazon Offers" />
+    <meta
+      property="og:description"
+      content="Track hand-picked UK deals, sale prices, discount drops, and live merchant links in one searchable feed."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://deal-finder-1-kxmn.onrender.com/" />
+    <meta property="og:site_name" content="DealFinder" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="DealFinder | UK Deals, Tech Discounts & Amazon Offers" />
+    <meta
+      name="twitter:description"
+      content="Search current UK deals across tech, home, gaming, and Amazon offers."
     />
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KTSBPFMQJP"></script>
     <script>
@@ -16,6 +32,74 @@
       }
       gtag("js", new Date());
       gtag("config", "G-KTSBPFMQJP");
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "DealFinder",
+        "url": "https://deal-finder-1-kxmn.onrender.com/",
+        "description": "DealFinder tracks hand-picked UK deals, discount drops, and merchant offers.",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://deal-finder-1-kxmn.onrender.com/?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "Current UK Deals",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+              "@type": "Product",
+              "name": "PlayStation DualSense Wireless Controller",
+              "brand": "Sony",
+              "offers": {
+                "@type": "Offer",
+                "price": "44.99",
+                "priceCurrency": "GBP",
+                "url": "https://www.amazon.co.uk/s?k=PlayStation+DualSense+Wireless+Controller"
+              }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+              "@type": "Product",
+              "name": "Ninja SLUSHi Frozen Drinks Maker",
+              "brand": "Ninja",
+              "offers": {
+                "@type": "Offer",
+                "price": "199.00",
+                "priceCurrency": "GBP",
+                "url": "https://www.amazon.co.uk/s?k=Ninja+SLUSHi+Frozen+Drinks+Maker"
+              }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "item": {
+              "@type": "Product",
+              "name": "Oral-B iO2 Electric Toothbrush",
+              "brand": "Oral-B",
+              "offers": {
+                "@type": "Offer",
+                "price": "44.99",
+                "priceCurrency": "GBP",
+                "url": "https://www.amazon.co.uk/s?k=Oral-B+iO2+Electric+Toothbrush"
+              }
+            }
+          }
+        ]
+      }
     </script>
     <link rel="stylesheet" href="styles.css" />
   </head>
