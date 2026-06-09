@@ -27,7 +27,7 @@ const addDealMessage = document.querySelector("#addDealMessage");
 const money = new Intl.NumberFormat("en-GB", {
   style: "currency",
   currency: "GBP",
-  maximumFractionDigits: 0,
+  maximumFractionDigits: 2,
 });
 
 function discountFor(deal) {
@@ -107,6 +107,11 @@ function renderDeals(items) {
     saveButton.addEventListener("click", () => toggleSaved(deal.id));
 
     card.querySelector(".primary-button").addEventListener("click", () => {
+      if (deal.url) {
+        window.open(deal.url, "_blank", "noopener");
+        return;
+      }
+
       toggleSaved(deal.id);
     });
 
