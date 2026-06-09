@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DealFinder</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Deal finder controls">
+        <div class="brand">
+          <div class="brand-mark">D</div>
+          <div>
+            <p class="eyebrow">Live scout</p>
+            <h1>DealFinder</h1>
+            <span class="live-status" id="liveStatus">Connecting</span>
+          </div>
+        </div>
+
+        <label class="search-field" for="search">
+          <span>Search</span>
+          <input id="search" type="search" placeholder="Laptop, coffee, flights..." autocomplete="off" />
+        </label>
+
+        <fieldset class="control-group">
+          <legend>Category</legend>
+          <div class="segmented" id="categoryFilters"></div>
+        </fieldset>
+
+        <fieldset class="control-group">
+          <legend>Minimum discount</legend>
+          <div class="range-row">
+            <input id="discountRange" type="range" min="0" max="70" value="20" step="5" />
+            <output id="discountOutput" for="discountRange">20%</output>
+          </div>
+        </fieldset>
+
+        <fieldset class="control-group">
+          <legend>Sort by</legend>
+          <select id="sortSelect">
+            <option value="score">Best signal</option>
+            <option value="discount">Biggest drop</option>
+            <option value="price">Lowest price</option>
+            <option value="expires">Ending soon</option>
+          </select>
+        </fieldset>
+
+        <section class="add-panel" aria-labelledby="addDealTitle">
+          <div class="panel-heading">
+            <h2 id="addDealTitle">Add Deal</h2>
+          </div>
+          <form id="addDealForm" class="add-form">
+            <input name="title" type="text" placeholder="Deal title" required />
+            <input name="merchant" type="text" placeholder="Merchant" required />
+            <select name="category" required>
+              <option value="Tech">Tech</option>
+              <option value="Home">Home</option>
+              <option value="Travel">Travel</option>
+              <option value="Fashion">Fashion</option>
+              <option value="Food">Food</option>
+            </select>
+            <div class="form-row">
+              <input name="salePrice" type="number" min="1" placeholder="Sale" required />
+              <input name="listPrice" type="number" min="1" placeholder="List" required />
+            </div>
+            <div class="form-row">
+              <input name="expiresInHours" type="number" min="1" placeholder="Hours" required />
+              <input name="stock" type="text" placeholder="Stock" required />
+            </div>
+            <button class="primary-button" type="submit">Add deal</button>
+            <p id="addDealMessage" class="form-message"></p>
+          </form>
+        </section>
+
+        <section class="saved-panel" aria-labelledby="savedTitle">
+          <div class="panel-heading">
+            <h2 id="savedTitle">Saved</h2>
+            <span id="savedCount">0</span>
+          </div>
+          <div id="savedDeals" class="saved-list"></div>
+        </section>
+      </aside>
+
+      <main class="content">
+        <section class="topbar" aria-label="Deal summary">
+          <div>
+            <p class="eyebrow">Today’s strongest matches</p>
+            <h2>Find the price drops worth acting on</h2>
+          </div>
+          <div class="stats">
+            <div>
+              <span id="visibleCount">0</span>
+              <small>matches</small>
+            </div>
+            <div>
+              <span id="avgDrop">0%</span>
+              <small>avg drop</small>
+            </div>
+            <div>
+              <span id="endingSoon">0</span>
+              <small>ending soon</small>
+            </div>
+          </div>
+        </section>
+
+        <section id="dealGrid" class="deal-grid" aria-live="polite"></section>
+      </main>
+    </div>
+
+    <template id="dealCardTemplate">
+      <article class="deal-card">
+        <div class="deal-media">
+          <span class="category-pill"></span>
+          <button class="save-button" type="button" aria-label="Save deal">♡</button>
+        </div>
+        <div class="deal-body">
+          <div class="deal-title-row">
+            <h3></h3>
+            <span class="score"></span>
+          </div>
+          <p class="merchant"></p>
+          <div class="price-row">
+            <strong class="sale-price"></strong>
+            <span class="list-price"></span>
+            <span class="discount"></span>
+          </div>
+          <div class="meta-row">
+            <span class="expires"></span>
+            <span class="stock"></span>
+          </div>
+          <button class="primary-button" type="button">View deal</button>
+        </div>
+      </article>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
