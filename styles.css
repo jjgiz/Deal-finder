@@ -194,9 +194,14 @@ output {
   text-align: right;
 }
 
-.saved-panel {
+.saved-panel,
+.newsletter-panel {
   border-top: 1px solid var(--line);
   padding-top: 18px;
+}
+
+.newsletter-panel {
+  margin-top: 22px;
 }
 
 .add-panel {
@@ -205,13 +210,16 @@ output {
   margin-bottom: 22px;
 }
 
-.add-form {
+.add-form,
+.newsletter-form {
   display: grid;
   gap: 9px;
 }
 
 .add-form input,
-.add-form select {
+.add-form select,
+.newsletter-form input,
+.newsletter-form select {
   width: 100%;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -304,7 +312,10 @@ output {
 }
 
 .stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(112px, 1fr));
   gap: 10px;
+  max-width: 470px;
 }
 
 .stats div {
@@ -427,12 +438,28 @@ output {
   padding: 5px 8px;
 }
 
-.meta-row {
+.meta-row,
+.confidence-row {
   justify-content: space-between;
   gap: 8px;
   color: var(--muted);
   font-size: 0.85rem;
   min-height: 24px;
+}
+
+.confidence-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.confidence-row span {
+  border-radius: 999px;
+  background: #eef2ef;
+  color: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 5px 8px;
 }
 
 .primary-button {
@@ -447,7 +474,19 @@ output {
   cursor: pointer;
 }
 
+.secondary-button {
+  width: 100%;
+  min-height: 40px;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  background: #e6f3ed;
+  color: var(--accent-strong);
+  font-weight: 800;
+  cursor: pointer;
+}
+
 .primary-button:hover,
+.secondary-button:hover,
 .save-button:hover,
 .chip:hover {
   filter: brightness(0.96);
@@ -548,8 +587,8 @@ output {
 
   .stats {
     width: 100%;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    max-width: none;
+    grid-template-columns: repeat(4, 1fr);
   }
 
   .stats div {

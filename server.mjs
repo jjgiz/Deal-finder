@@ -6,6 +6,9 @@ import { dirname, extname, join, normalize } from "node:path";
 const port = process.env.PORT || 4173;
 const root = process.cwd();
 const dealsFile = process.env.DEALS_FILE || join(process.env.RENDER_DISK_PATH || root, "deals.json");
+const leadsFile = process.env.LEADS_FILE || join(process.env.RENDER_DISK_PATH || root, "leads.json");
+const clickFile = process.env.CLICK_FILE || join(process.env.RENDER_DISK_PATH || root, "clicks.json");
+const amazonAssociateTag = process.env.AMAZON_ASSOCIATE_TAG || "";
 const clients = new Set();
 
 const defaultDeals = [
@@ -183,7 +186,7 @@ async function loadDeals() {
   try {
     const savedDeals = JSON.parse(await readFile(dealsFile, "utf8"));
 
-    if (Array.isArray(savedDeals)) {
+    if (Array.isArray(savedDeals) && savedDeals.length > 0) {
       return savedDeals;
     }
   } catch (error) {
@@ -192,6 +195,7 @@ async function loadDeals() {
     }
   }
 
+  console.warn(`No saved deals found in ${dealsFile}; seeding default deals.`);
   await saveDeals(defaultDeals);
   return defaultDeals;
 }
@@ -202,6 +206,24 @@ async function saveDeals(nextDeals) {
 }
 
 let deals = await loadDeals();
+
+async function readList(filePath) {
+  try {
+    const data = JSON.parse(await readFile(filePath, "utf8"));
+    return Array.isArray(data) ? data : [];
+  } catch (error) {
+    if (error.code !== "ENOENT") {
+      console.warn(`Could not read ${filePath}; starting with an empty list.`);
+    }
+
+    return [];
+  }
+}
+
+async function writeList(filePath, items) {
+  await mkdir(dirname(filePath), { recursive: true });
+  await writeFile(filePath, `${JSON.stringify(items, null, 2)}\n`);
+}
 
 const categoryColors = {
   Fashion: "#e7e2f2",
@@ -226,6 +248,62 @@ function sendJson(response, data) {
     "Cache-Control": "no-store",
   });
   response.end(JSON.stringify(data));
+}
+
+function notFound(response) {
+  response.writeHead(404, { "Content-Type": "application/json" });
+  response.end(JSON.stringify({ error: "Not found" }));
+}
+
+function enrichDealUrl(deal) {
+  if (!amazonAssociateTag || !deal.url.includes("amazon.co.uk")) {
+    return deal.url;
+  }
+
+  const url = new URL(deal.url);
+  url.searchParams.set("tag", amazonAssociateTag);
+  return url.toString();
+}
+
+function summarizeClicks(clicks) {
+  const byDeal = new Map();
+
+  clicks.forEach((click) => {
+    const current = byDeal.get(click.dealId) || {
+      dealId: click.dealId,
+      title: click.title,
+      merchant: click.merchant,
+      clicks: 0,
+    };
+
+    current.clicks += 1;
+    byDeal.set(click.dealId, current);
+  });
+
+  return [...byDeal.values()].sort((a, b) => b.clicks - a.clicks).slice(0, 10);
+}
+
+function summarizeCategories() {
+  const byCategory = new Map();
+
+  deals.forEach((deal) => {
+    const current = byCategory.get(deal.category) || {
+      category: deal.category,
+      deals: 0,
+      averageDiscount: 0,
+    };
+
+    current.deals += 1;
+    current.averageDiscount += Math.round(((deal.listPrice - deal.salePrice) / deal.listPrice) * 100);
+    byCategory.set(deal.category, current);
+  });
+
+  return [...byCategory.values()]
+    .map((item) => ({
+      ...item,
+      averageDiscount: item.deals ? Math.round(item.averageDiscount / item.deals) : 0,
+    }))
+    .sort((a, b) => b.deals - a.deals);
 }
 
 function broadcastDeals() {
@@ -258,6 +336,10 @@ function isValidDeal(deal) {
   );
 }
 
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
 async function serveStatic(request, response) {
   const requestedPath = new URL(request.url, `http://${request.headers.host}`).pathname;
   const safePath = normalize(requestedPath === "/" ? "/index.html" : requestedPath).replace(/^(\.\.[/\\])+/, "");
@@ -275,12 +357,14 @@ async function serveStatic(request, response) {
 }
 
 const server = createServer(async (request, response) => {
-  if (request.url === "/api/deals" && request.method === "GET") {
+  const requestUrl = new URL(request.url, `http://${request.headers.host}`);
+
+  if (requestUrl.pathname === "/api/deals" && request.method === "GET") {
     sendJson(response, deals);
     return;
   }
 
-  if (request.url === "/api/deals" && request.method === "POST") {
+  if (requestUrl.pathname === "/api/deals" && request.method === "POST") {
     try {
       const deal = await readJson(request);
 
@@ -315,7 +399,7 @@ const server = createServer(async (request, response) => {
     return;
   }
 
-  if (request.url === "/api/deals/live") {
+  if (requestUrl.pathname === "/api/deals/live") {
     response.writeHead(200, {
       "Content-Type": "text/event-stream",
       "Cache-Control": "no-store",
@@ -325,6 +409,86 @@ const server = createServer(async (request, response) => {
     response.write(`data: ${JSON.stringify(deals)}\n\n`);
     clients.add(response);
     request.on("close", () => clients.delete(response));
+    return;
+  }
+
+  if (requestUrl.pathname === "/api/admin/metrics" && request.method === "GET") {
+    const clicks = await readList(clickFile);
+    const leads = await readList(leadsFile);
+
+    sendJson(response, {
+      dealCount: deals.length,
+      leadCount: leads.length,
+      clickCount: clicks.length,
+      topDeals: summarizeClicks(clicks),
+      categories: summarizeCategories(),
+    });
+    return;
+  }
+
+  if (requestUrl.pathname === "/api/leads" && request.method === "POST") {
+    try {
+      const lead = await readJson(request);
+      const email = String(lead.email || "").trim().toLowerCase();
+      const category = String(lead.category || "All").trim();
+
+      if (!isValidEmail(email)) {
+        response.writeHead(400, { "Content-Type": "application/json" });
+        response.end(JSON.stringify({ error: "Invalid email" }));
+        return;
+      }
+
+      const leads = await readList(leadsFile);
+      const existing = leads.find((item) => item.email === email);
+      const savedLead = {
+        email,
+        category,
+        source: "deal-alerts",
+        createdAt: existing?.createdAt || new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      };
+
+      await writeList(
+        leadsFile,
+        existing ? leads.map((item) => (item.email === email ? savedLead : item)) : [savedLead, ...leads],
+      );
+
+      sendJson(response, { ok: true });
+    } catch {
+      response.writeHead(400, { "Content-Type": "application/json" });
+      response.end(JSON.stringify({ error: "Invalid JSON" }));
+    }
+
+    return;
+  }
+
+  if (requestUrl.pathname === "/out" && request.method === "GET") {
+    const dealId = Number(requestUrl.searchParams.get("deal"));
+    const deal = deals.find((item) => item.id === dealId);
+
+    if (!deal || !deal.url) {
+      notFound(response);
+      return;
+    }
+
+    const clicks = await readList(clickFile);
+    await writeList(clickFile, [
+      {
+        dealId: deal.id,
+        title: deal.title,
+        merchant: deal.merchant,
+        clickedAt: new Date().toISOString(),
+        referrer: request.headers.referer || "",
+        userAgent: request.headers["user-agent"] || "",
+      },
+      ...clicks.slice(0, 999),
+    ]);
+
+    response.writeHead(302, {
+      Location: enrichDealUrl(deal),
+      "Cache-Control": "no-store",
+    });
+    response.end();
     return;
   }
 

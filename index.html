@@ -101,7 +101,7 @@
         ]
       }
     </script>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=3" />
   </head>
   <body>
     <div class="app-shell">
@@ -179,16 +179,36 @@
           </div>
           <div id="savedDeals" class="saved-list"></div>
         </section>
+
+        <section class="newsletter-panel" aria-labelledby="newsletterTitle">
+          <div class="panel-heading">
+            <h2 id="newsletterTitle">Deal Alerts</h2>
+          </div>
+          <form id="newsletterForm" class="newsletter-form">
+            <input name="email" type="email" placeholder="you@example.com" autocomplete="email" required />
+            <select name="category" aria-label="Preferred category">
+              <option value="All">All categories</option>
+              <option value="Tech">Tech</option>
+              <option value="Home">Home</option>
+              <option value="Travel">Travel</option>
+              <option value="Fashion">Fashion</option>
+              <option value="Food">Food</option>
+              <option value="Toys">Toys</option>
+            </select>
+            <button class="secondary-button" type="submit">Send alerts</button>
+            <p id="newsletterMessage" class="form-message"></p>
+          </form>
+        </section>
       </aside>
 
       <main class="content">
         <section class="topbar" aria-label="Deal summary">
           <div>
             <p class="eyebrow">Today’s strongest matches</p>
-            <h2>Find the price drops worth acting on</h2>
+            <h2>Find the price drops worth checking before they disappear</h2>
             <p class="intro-copy">
-              DealFinder curates noteworthy savings across technology, home, travel, fashion, and food so shoppers can compare
-              discounts quickly before they expire.
+              DealFinder curates noteworthy savings across tech, home, toys, and everyday essentials so shoppers can compare
+              discounts quickly before visiting a retailer.
             </p>
           </div>
           <div class="stats">
@@ -203,6 +223,10 @@
             <div>
               <span id="endingSoon">0</span>
               <small>ending soon</small>
+            </div>
+            <div>
+              <span id="estValue">£0</span>
+              <small>total savings</small>
             </div>
           </div>
         </section>
@@ -224,27 +248,26 @@
         <section class="info-grid" aria-label="Site information">
           <article id="disclosure">
             <p class="eyebrow">Disclosure</p>
-            <h2>Affiliate Disclosure</h2>
+            <h2>Link Disclosure</h2>
             <p>
-              DealFinder may earn a commission when visitors click qualifying merchant links or complete a purchase. This does not
-              change the price paid by the shopper. Deals are selected for relevance, discount strength, and availability.
+              DealFinder links to retailer pages so shoppers can check availability and current prices. The price paid by the
+              shopper is set by the retailer and can change after leaving this site.
             </p>
           </article>
           <article id="privacy">
             <p class="eyebrow">Privacy</p>
             <h2>Privacy Policy</h2>
             <p>
-              DealFinder stores saved deals in your browser using local storage. We do not ask for account details, payment
-              information, or sensitive personal data in this prototype. We use Google Analytics to understand visits, pages,
-              devices, and traffic sources. Server logs may include basic request information used to keep the service working.
+              DealFinder stores saved deals in your browser using local storage and saves submitted deal-alert email addresses on
+              the server. We do not ask for account details, payment information, or sensitive personal data. We use analytics and
+              basic click logs to understand which deals visitors find useful.
             </p>
           </article>
           <article id="contact">
             <p class="eyebrow">Contact</p>
             <h2>Contact</h2>
             <p>
-              For deal corrections, partnership questions, or removal requests, use the contact details provided through the
-              publisher account or the merchant network where the offer appears.
+              For deal corrections, partnership questions, or removal requests, use the contact details provided by the site owner.
             </p>
           </article>
         </section>
@@ -253,7 +276,7 @@
           <span>DealFinder</span>
           <nav aria-label="Footer navigation">
             <a href="#about">About</a>
-            <a href="#disclosure">Affiliate Disclosure</a>
+            <a href="#disclosure">Disclosure</a>
             <a href="#privacy">Privacy</a>
             <a href="#contact">Contact</a>
           </nav>
@@ -278,6 +301,10 @@
             <span class="list-price"></span>
             <span class="discount"></span>
           </div>
+          <div class="confidence-row">
+            <span class="savings"></span>
+            <span class="signal"></span>
+          </div>
           <div class="meta-row">
             <span class="expires"></span>
             <span class="stock"></span>
@@ -287,6 +314,6 @@
       </article>
     </template>
 
-    <script src="app.js"></script>
+    <script src="app.js?v=3"></script>
   </body>
 </html>

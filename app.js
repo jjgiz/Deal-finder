@@ -1,4 +1,79 @@
-let deals = [];
+const starterDeals = [
+  {
+    id: 1,
+    title: "PlayStation DualSense Wireless Controller",
+    merchant: "Amazon UK",
+    category: "Tech",
+    salePrice: 44.99,
+    listPrice: 64.99,
+    expiresInHours: 408,
+    stock: "Popular gaming deal",
+    color: "#dfe6ea",
+    url: "https://www.amazon.co.uk/s?k=PlayStation+DualSense+Wireless+Controller",
+  },
+  {
+    id: 2,
+    title: "Ninja SLUSHi Frozen Drinks Maker",
+    merchant: "Amazon UK",
+    category: "Home",
+    salePrice: 199,
+    listPrice: 299.99,
+    expiresInHours: 408,
+    stock: "Kitchen appliance watch",
+    color: "#f7e5d8",
+    url: "https://www.amazon.co.uk/s?k=Ninja+SLUSHi+Frozen+Drinks+Maker",
+  },
+  {
+    id: 3,
+    title: "Oral-B iO2 Electric Toothbrush",
+    merchant: "Amazon UK",
+    category: "Home",
+    salePrice: 44.99,
+    listPrice: 100,
+    expiresInHours: 408,
+    stock: "Health and grooming pick",
+    color: "#f5dfda",
+    url: "https://www.amazon.co.uk/s?k=Oral-B+iO2+Electric+Toothbrush",
+  },
+  {
+    id: 4,
+    title: "MSI Pro MP223 22-inch Full HD Monitor",
+    merchant: "Amazon UK",
+    category: "Tech",
+    salePrice: 48.95,
+    listPrice: 69,
+    expiresInHours: 408,
+    stock: "Home office deal",
+    color: "#d9eee5",
+    url: "https://www.amazon.co.uk/s?k=MSI+Pro+MP223+22-inch+Full+HD+Monitor",
+  },
+  {
+    id: 5,
+    title: "LEGO Speed Champions F1 Car Sets",
+    merchant: "Amazon UK",
+    category: "Toys",
+    salePrice: 21.99,
+    listPrice: 29.99,
+    expiresInHours: 408,
+    stock: "Gift deal watch",
+    color: "#fff2d8",
+    url: "https://www.amazon.co.uk/s?k=LEGO+Speed+Champions+F1",
+  },
+  {
+    id: 6,
+    title: "Ninja Double Stack XL Air Fryer",
+    merchant: "Amazon UK",
+    category: "Home",
+    salePrice: 205,
+    listPrice: 269.99,
+    expiresInHours: 408,
+    stock: "Kitchen bestseller watch",
+    color: "#dbe9f6",
+    url: "https://www.amazon.co.uk/s?k=Ninja+Double+Stack+XL+Air+Fryer",
+  },
+];
+
+let deals = [...starterDeals];
 
 const state = {
   category: "All",
@@ -20,9 +95,12 @@ const savedCount = document.querySelector("#savedCount");
 const visibleCount = document.querySelector("#visibleCount");
 const avgDrop = document.querySelector("#avgDrop");
 const endingSoon = document.querySelector("#endingSoon");
+const estValue = document.querySelector("#estValue");
 const liveStatus = document.querySelector("#liveStatus");
 const addDealForm = document.querySelector("#addDealForm");
 const addDealMessage = document.querySelector("#addDealMessage");
+const newsletterForm = document.querySelector("#newsletterForm");
+const newsletterMessage = document.querySelector("#newsletterMessage");
 
 const money = new Intl.NumberFormat("en-GB", {
   style: "currency",
@@ -39,8 +117,24 @@ function scoreFor(deal) {
   return Math.min(99, Math.round(discountFor(deal) * 1.25 + urgencyBoost * 1.7));
 }
 
+function savingsFor(deal) {
+  return Math.max(0, deal.listPrice - deal.salePrice);
+}
+
+function signalFor(deal) {
+  const score = scoreFor(deal);
+
+  if (score >= 70) return "Strong signal";
+  if (score >= 45) return "Good signal";
+  return "Watchlist";
+}
+
 function categories() {
   return ["All", ...new Set(deals.map((deal) => deal.category))];
+}
+
+function usableDeals(nextDeals) {
+  return Array.isArray(nextDeals) && nextDeals.length > 0 ? nextDeals : starterDeals;
 }
 
 function renderCategories() {
@@ -98,6 +192,8 @@ function renderDeals(items) {
     card.querySelector(".sale-price").textContent = money.format(deal.salePrice);
     card.querySelector(".list-price").textContent = money.format(deal.listPrice);
     card.querySelector(".discount").textContent = `${discountFor(deal)}% off`;
+    card.querySelector(".savings").textContent = `${money.format(savingsFor(deal))} saved`;
+    card.querySelector(".signal").textContent = signalFor(deal);
     card.querySelector(".expires").textContent = `${deal.expiresInHours}h left`;
     card.querySelector(".stock").textContent = deal.stock;
 
@@ -108,7 +204,7 @@ function renderDeals(items) {
 
     card.querySelector(".primary-button").addEventListener("click", () => {
       if (deal.url) {
-        window.open(deal.url, "_blank", "noopener");
+        window.open(`/out?deal=${encodeURIComponent(deal.id)}`, "_blank", "noopener");
         return;
       }
 
@@ -146,6 +242,7 @@ function renderStats(items) {
     ? `${Math.round(items.reduce((total, deal) => total + discountFor(deal), 0) / items.length)}%`
     : "0%";
   endingSoon.textContent = items.filter((deal) => deal.expiresInHours <= 12).length;
+  estValue.textContent = money.format(items.reduce((total, deal) => total + savingsFor(deal), 0));
 }
 
 function toggleSaved(id) {
@@ -176,11 +273,13 @@ function setLiveStatus(text, className) {
 async function loadDeals() {
   try {
     const response = await fetch("/api/deals");
-    deals = await response.json();
+    deals = usableDeals(await response.json());
     setLiveStatus("Live", "connected");
     render();
   } catch {
+    deals = [...starterDeals];
     setLiveStatus("Offline", "offline");
+    render();
   }
 }
 
@@ -198,7 +297,7 @@ function connectLiveDeals() {
   };
 
   stream.onmessage = (event) => {
-    deals = JSON.parse(event.data);
+    deals = usableDeals(JSON.parse(event.data));
     render();
   };
 
@@ -245,6 +344,29 @@ addDealForm.addEventListener("submit", async (event) => {
     addDealMessage.textContent = "Deal added live.";
   } catch {
     addDealMessage.textContent = "Could not add deal.";
+  }
+});
+
+newsletterForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  newsletterMessage.textContent = "Saving...";
+
+  const formData = new FormData(newsletterForm);
+  const lead = Object.fromEntries(formData.entries());
+
+  try {
+    const response = await fetch("/api/leads", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(lead),
+    });
+
+    if (!response.ok) throw new Error("Lead was not accepted");
+
+    newsletterForm.reset();
+    newsletterMessage.textContent = "You are on the alert list.";
+  } catch {
+    newsletterMessage.textContent = "Could not save this email.";
   }
 });
 

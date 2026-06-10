@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
+    "import:deals": "node scripts/import-deals.mjs",
     "start": "node server.mjs"
   },
   "engines": {
