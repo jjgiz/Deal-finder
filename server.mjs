@@ -1,13 +1,14 @@
 import { createReadStream } from "node:fs";
-import { readFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { createServer } from "node:http";
-import { extname, join, normalize } from "node:path";
+import { dirname, extname, join, normalize } from "node:path";
 
 const port = process.env.PORT || 4173;
 const root = process.cwd();
+const dealsFile = process.env.DEALS_FILE || join(process.env.RENDER_DISK_PATH || root, "deals.json");
 const clients = new Set();
 
-let deals = [
+const defaultDeals = [
   {
     id: 1,
     title: "PlayStation DualSense Wireless Controller",
@@ -178,6 +179,30 @@ let deals = [
   },
 ];
 
+async function loadDeals() {
+  try {
+    const savedDeals = JSON.parse(await readFile(dealsFile, "utf8"));
+
+    if (Array.isArray(savedDeals)) {
+      return savedDeals;
+    }
+  } catch (error) {
+    if (error.code !== "ENOENT") {
+      console.warn(`Could not read ${dealsFile}; using default deals.`);
+    }
+  }
+
+  await saveDeals(defaultDeals);
+  return defaultDeals;
+}
+
+async function saveDeals(nextDeals) {
+  await mkdir(dirname(dealsFile), { recursive: true });
+  await writeFile(dealsFile, `${JSON.stringify(nextDeals, null, 2)}\n`);
+}
+
+let deals = await loadDeals();
+
 const categoryColors = {
   Fashion: "#e7e2f2",
   Food: "#efe1cb",
@@ -279,6 +304,7 @@ const server = createServer(async (request, response) => {
       };
 
       deals = [savedDeal, ...deals];
+      await saveDeals(deals);
       broadcastDeals();
       sendJson(response, savedDeal);
     } catch {
