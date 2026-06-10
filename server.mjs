@@ -2,6 +2,7 @@ import { createReadStream } from "node:fs";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { createServer } from "node:http";
 import { dirname, extname, join, normalize } from "node:path";
+import { importDeals } from "./lib/deal-importer.mjs";
 
 const port = process.env.PORT || 4173;
 const root = process.cwd();
@@ -11,6 +12,7 @@ const clickFile = process.env.CLICK_FILE || join(process.env.RENDER_DISK_PATH ||
 const amazonAssociateTag = process.env.AMAZON_ASSOCIATE_TAG || "";
 const awinPublisherId = process.env.AWIN_PUBLISHER_ID || "";
 const awinAdvertiserId = process.env.AWIN_ADVERTISER_ID || "";
+const importIntervalMinutes = Number(process.env.IMPORT_INTERVAL_MINUTES || 360);
 const clients = new Set();
 
 const defaultDeals = [
@@ -321,6 +323,21 @@ function broadcastDeals() {
   clients.forEach((client) => client.write(payload));
 }
 
+async function importLiveDeals() {
+  const result = await importDeals({
+    dealsFile,
+    existingDeals: deals,
+    fallbackDeals: defaultDeals,
+  });
+
+  deals = result.deals;
+  broadcastDeals();
+
+  const { deals: importedDealList, ...summary } = result;
+  console.log(`Deal import finished: ${JSON.stringify(summary)}`);
+  return summary;
+}
+
 async function readJson(request) {
   const chunks = [];
 
@@ -436,6 +453,17 @@ const server = createServer(async (request, response) => {
     return;
   }
 
+  if (requestUrl.pathname === "/api/admin/import" && request.method === "POST") {
+    try {
+      sendJson(response, await importLiveDeals());
+    } catch (error) {
+      response.writeHead(500, { "Content-Type": "application/json" });
+      response.end(JSON.stringify({ error: error.message }));
+    }
+
+    return;
+  }
+
   if (requestUrl.pathname === "/api/leads" && request.method === "POST") {
     try {
       const lead = await readJson(request);
@@ -509,3 +537,14 @@ server.listen(port, "0.0.0.0", () => {
   console.log(`DealFinder live server running on port ${port}.`);
   console.log("Add deals through the app or POST /api/deals to update connected browsers.");
 });
+
+if (process.env.DEAL_FEED_URLS) {
+  importLiveDeals().catch((error) => console.warn(`Deal import failed: ${error.message}`));
+
+  setInterval(
+    () => {
+      importLiveDeals().catch((error) => console.warn(`Deal import failed: ${error.message}`));
+    },
+    Math.max(15, importIntervalMinutes) * 60 * 1000,
+  );
+}

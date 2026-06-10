@@ -26,6 +26,14 @@ Replace `your-render-app.onrender.com` with the real DealFinder app URL, then ad
 
 This starter feed proves the automation works. For real passive updates, replace it with merchant or affiliate-network feed URLs.
 
+For Render, also add the same `DEAL_FEED_URLS` value to the **web service** environment. The web service imports deals on startup and then every 6 hours by default, which avoids cron/web-service filesystem separation.
+
+Optional web-service setting:
+
+```sh
+IMPORT_INTERVAL_MINUTES="360"
+```
+
 The importer accepts feeds shaped like any of these:
 
 ```json
