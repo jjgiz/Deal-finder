@@ -352,7 +352,8 @@ output {
 }
 
 .deal-media {
-  min-height: 132px;
+  position: relative;
+  min-height: 158px;
   padding: 12px;
   display: flex;
   align-items: flex-start;
@@ -360,6 +361,27 @@ output {
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.12)),
     var(--deal-color, #dfe8e1);
+  overflow: hidden;
+}
+
+.deal-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.deal-image.hidden {
+  display: none;
+}
+
+.deal-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(23, 32, 29, 0.08), rgba(23, 32, 29, 0.34));
+  pointer-events: none;
 }
 
 .category-pill,
@@ -372,6 +394,8 @@ output {
 .category-pill {
   background: rgba(255, 255, 255, 0.86);
   padding: 7px 10px;
+  position: relative;
+  z-index: 1;
 }
 
 .save-button {
@@ -383,6 +407,8 @@ output {
   color: var(--clay);
   cursor: pointer;
   font-size: 1.15rem;
+  position: relative;
+  z-index: 1;
 }
 
 .save-button.saved {

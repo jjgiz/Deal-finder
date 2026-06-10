@@ -9,7 +9,8 @@
       "listPrice": 349,
       "expiresInHours": 72,
       "stock": "Audio deal watch",
-      "url": "https://www.amazon.co.uk/s?k=Sony+WH-1000XM5+Wireless+Headphones"
+      "url": "https://www.amazon.co.uk/s?k=Sony+WH-1000XM5+Wireless+Headphones",
+      "imageUrl": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=900&q=80"
     },
     {
       "id": "feed-instant-pot-duo",
@@ -20,7 +21,8 @@
       "listPrice": 109.99,
       "expiresInHours": 96,
       "stock": "Kitchen deal watch",
-      "url": "https://www.amazon.co.uk/s?k=Instant+Pot+Duo+7-in-1"
+      "url": "https://www.amazon.co.uk/s?k=Instant+Pot+Duo+7-in-1",
+      "imageUrl": "https://images.unsplash.com/photo-1585515320310-259814833e62?auto=format&fit=crop&w=900&q=80"
     },
     {
       "id": "feed-logitech-mx-master",
@@ -31,7 +33,8 @@
       "listPrice": 99.99,
       "expiresInHours": 120,
       "stock": "Home office pick",
-      "url": "https://www.amazon.co.uk/s?k=Logitech+MX+Master+3S"
+      "url": "https://www.amazon.co.uk/s?k=Logitech+MX+Master+3S",
+      "imageUrl": "https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&w=900&q=80"
     },
     {
       "id": "feed-lego-orchid",
@@ -42,7 +45,8 @@
       "listPrice": 44.99,
       "expiresInHours": 168,
       "stock": "Gift deal watch",
-      "url": "https://www.amazon.co.uk/s?k=LEGO+Icons+Orchid"
+      "url": "https://www.amazon.co.uk/s?k=LEGO+Icons+Orchid",
+      "imageUrl": "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=900&q=80"
     },
     {
       "id": "feed-philips-hue-starter",
@@ -53,7 +57,8 @@
       "listPrice": 149.99,
       "expiresInHours": 72,
       "stock": "Smart home deal",
-      "url": "https://www.amazon.co.uk/s?k=Philips+Hue+Starter+Kit"
+      "url": "https://www.amazon.co.uk/s?k=Philips+Hue+Starter+Kit",
+      "imageUrl": "https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=900&q=80"
     },
     {
       "id": "feed-anker-power-bank",
@@ -64,7 +69,8 @@
       "listPrice": 44.99,
       "expiresInHours": 96,
       "stock": "Travel tech watch",
-      "url": "https://www.amazon.co.uk/s?k=Anker+Power+Bank+20000mAh+USB-C"
+      "url": "https://www.amazon.co.uk/s?k=Anker+Power+Bank+20000mAh+USB-C",
+      "imageUrl": "https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?auto=format&fit=crop&w=900&q=80"
     },
     {
       "id": "feed-fire-tv-stick-4k",
@@ -75,7 +81,8 @@
       "listPrice": 59.99,
       "expiresInHours": 120,
       "stock": "Streaming deal watch",
-      "url": "https://www.amazon.co.uk/s?k=Fire+TV+Stick+4K"
+      "url": "https://www.amazon.co.uk/s?k=Fire+TV+Stick+4K",
+      "imageUrl": "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=900&q=80"
     },
     {
       "id": "feed-echo-dot",
@@ -86,7 +93,8 @@
       "listPrice": 54.99,
       "expiresInHours": 120,
       "stock": "Smart speaker watch",
-      "url": "https://www.amazon.co.uk/s?k=Echo+Dot"
+      "url": "https://www.amazon.co.uk/s?k=Echo+Dot",
+      "imageUrl": "https://images.unsplash.com/photo-1543512214-318c7553f230?auto=format&fit=crop&w=900&q=80"
     },
     {
       "id": "feed-ring-video-doorbell",
@@ -97,7 +105,8 @@
       "listPrice": 99.99,
       "expiresInHours": 144,
       "stock": "Smart home security watch",
-      "url": "https://www.amazon.co.uk/s?k=Ring+Video+Doorbell"
+      "url": "https://www.amazon.co.uk/s?k=Ring+Video+Doorbell",
+      "imageUrl": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=80"
     },
     {
       "id": "feed-shark-cordless-vacuum",
@@ -108,7 +117,8 @@
       "listPrice": 279.99,
       "expiresInHours": 168,
       "stock": "Cleaning deal watch",
-      "url": "https://www.amazon.co.uk/s?k=Shark+Cordless+Vacuum+Cleaner"
+      "url": "https://www.amazon.co.uk/s?k=Shark+Cordless+Vacuum+Cleaner",
+      "imageUrl": "https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=900&q=80"
     },
     {
       "id": "feed-corsair-k55-keyboard",
@@ -119,7 +129,8 @@
       "listPrice": 59.99,
       "expiresInHours": 96,
       "stock": "Gaming accessory watch",
-      "url": "https://www.amazon.co.uk/s?k=Corsair+K55+RGB+Gaming+Keyboard"
+      "url": "https://www.amazon.co.uk/s?k=Corsair+K55+RGB+Gaming+Keyboard",
+      "imageUrl": "https://images.unsplash.com/photo-1541140532154-b024d705b90a?auto=format&fit=crop&w=900&q=80"
     },
     {
       "id": "feed-samsung-t7-ssd",
@@ -130,7 +141,8 @@
       "listPrice": 109.99,
       "expiresInHours": 96,
       "stock": "Storage deal watch",
-      "url": "https://www.amazon.co.uk/s?k=Samsung+T7+Portable+SSD+1TB"
+      "url": "https://www.amazon.co.uk/s?k=Samsung+T7+Portable+SSD+1TB",
+      "imageUrl": "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=900&q=80"
     },
     {
       "id": "feed-nespresso-vertuo",
@@ -141,7 +153,8 @@
       "listPrice": 149.99,
       "expiresInHours": 168,
       "stock": "Coffee machine watch",
-      "url": "https://www.amazon.co.uk/s?k=Nespresso+Vertuo+Coffee+Machine"
+      "url": "https://www.amazon.co.uk/s?k=Nespresso+Vertuo+Coffee+Machine",
+      "imageUrl": "https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?auto=format&fit=crop&w=900&q=80"
     },
     {
       "id": "feed-lego-star-wars",
@@ -152,7 +165,8 @@
       "listPrice": 49.99,
       "expiresInHours": 168,
       "stock": "LEGO deal watch",
-      "url": "https://www.amazon.co.uk/s?k=LEGO+Star+Wars+Sets"
+      "url": "https://www.amazon.co.uk/s?k=LEGO+Star+Wars+Sets",
+      "imageUrl": "https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=900&q=80"
     },
     {
       "id": "feed-hot-wheels-track",
@@ -163,7 +177,8 @@
       "listPrice": 29.99,
       "expiresInHours": 120,
       "stock": "Toy deal watch",
-      "url": "https://www.amazon.co.uk/s?k=Hot+Wheels+Track+Builder"
+      "url": "https://www.amazon.co.uk/s?k=Hot+Wheels+Track+Builder",
+      "imageUrl": "https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?auto=format&fit=crop&w=900&q=80"
     },
     {
       "id": "feed-adidas-running-shoes",
@@ -174,7 +189,8 @@
       "listPrice": 64.99,
       "expiresInHours": 120,
       "stock": "Sportswear deal watch",
-      "url": "https://www.amazon.co.uk/s?k=adidas+running+shoes"
+      "url": "https://www.amazon.co.uk/s?k=adidas+running+shoes",
+      "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=80"
     },
     {
       "id": "feed-protein-powder",
@@ -185,7 +201,8 @@
       "listPrice": 59.99,
       "expiresInHours": 96,
       "stock": "Fitness nutrition watch",
-      "url": "https://www.amazon.co.uk/s?k=Optimum+Nutrition+Gold+Standard+Whey"
+      "url": "https://www.amazon.co.uk/s?k=Optimum+Nutrition+Gold+Standard+Whey",
+      "imageUrl": "https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=900&q=80"
     }
   ]
 }

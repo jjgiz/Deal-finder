@@ -27,6 +27,7 @@ const defaultDeals = [
     stock: "Early Prime Day coverage",
     color: "#dfe6ea",
     url: "https://www.amazon.co.uk/s?k=PlayStation+DualSense+Wireless+Controller",
+    imageUrl: "https://images.unsplash.com/photo-1606813907291-d86efa9b94db?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: 2,
@@ -39,6 +40,7 @@ const defaultDeals = [
     stock: "Early Prime Day coverage",
     color: "#f7e5d8",
     url: "https://www.amazon.co.uk/s?k=Ninja+SLUSHi+Frozen+Drinks+Maker",
+    imageUrl: "https://images.unsplash.com/photo-1570222094114-d054a817e56b?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: 3,
@@ -51,6 +53,7 @@ const defaultDeals = [
     stock: "Early Prime Day coverage",
     color: "#d9eee5",
     url: "https://www.amazon.co.uk/s?k=Livento+Cordless+Strimmer",
+    imageUrl: "https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: 4,
@@ -63,6 +66,7 @@ const defaultDeals = [
     stock: "Early Prime Day coverage",
     color: "#f5dfda",
     url: "https://www.amazon.co.uk/s?k=Oral-B+iO2+Electric+Toothbrush",
+    imageUrl: "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: 5,
@@ -75,6 +79,7 @@ const defaultDeals = [
     stock: "Early Prime Day coverage",
     color: "#dbe9f6",
     url: "https://www.amazon.co.uk/s?k=Sonos+Beam+Gen+2+Soundbar",
+    imageUrl: "https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: 6,
@@ -87,6 +92,7 @@ const defaultDeals = [
     stock: "Early Prime Day coverage",
     color: "#e7e2f2",
     url: "https://www.amazon.co.uk/s?k=MSI+GeForce+RTX+5060+Ti",
+    imageUrl: "https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: 7,
@@ -99,6 +105,7 @@ const defaultDeals = [
     stock: "Early Prime Day coverage",
     color: "#fff2d8",
     url: "https://www.amazon.co.uk/s?k=Duracell+Plus+AA+Batteries+36+Pack",
+    imageUrl: "https://images.unsplash.com/photo-1619641805634-b867f5350719?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: 8,
@@ -111,6 +118,7 @@ const defaultDeals = [
     stock: "Early Prime Day coverage",
     color: "#f7e5d8",
     url: "https://www.amazon.co.uk/s?k=Ninja+Double+Stack+XL+Air+Fryer",
+    imageUrl: "https://images.unsplash.com/photo-1585515320310-259814833e62?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: 9,
@@ -123,6 +131,7 @@ const defaultDeals = [
     stock: "Early Prime Day coverage",
     color: "#d9eee5",
     url: "https://www.amazon.co.uk/s?k=Philips+OneBlade+360",
+    imageUrl: "https://images.unsplash.com/photo-1621607512214-68297480165e?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: 10,
@@ -135,6 +144,7 @@ const defaultDeals = [
     stock: "Early Prime Day coverage",
     color: "#dfe6ea",
     url: "https://www.amazon.co.uk/s?k=MSI+Pro+MP223+22-inch+Full+HD+Monitor",
+    imageUrl: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: 11,
@@ -147,6 +157,7 @@ const defaultDeals = [
     stock: "LEGO gaming deal watch",
     color: "#fff2d8",
     url: "https://www.amazon.co.uk/s?k=LEGO+Game+Boy",
+    imageUrl: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: 12,
@@ -159,6 +170,7 @@ const defaultDeals = [
     stock: "Space LEGO deal watch",
     color: "#dbe9f6",
     url: "https://www.argos.co.uk/search/lego-technic-nasa-artemis/",
+    imageUrl: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: 13,
@@ -171,6 +183,7 @@ const defaultDeals = [
     stock: "Prime Day LEGO watch",
     color: "#e7e2f2",
     url: "https://www.amazon.co.uk/s?k=LEGO+Speed+Champions+F1",
+    imageUrl: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: 14,
@@ -183,6 +196,7 @@ const defaultDeals = [
     stock: "Gift LEGO deal watch",
     color: "#f5dfda",
     url: "https://www.amazon.co.uk/s?k=LEGO+Botanicals",
+    imageUrl: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=900&q=80",
   },
 ];
 
@@ -204,7 +218,7 @@ async function loadDeals() {
     const savedDeals = JSON.parse(await readFile(dealsFile, "utf8"));
 
     if (Array.isArray(savedDeals) && savedDeals.length > 0) {
-      const mergedDeals = mergeDeals(savedDeals, bundledDeals);
+      const mergedDeals = mergeDeals(savedDeals, [...defaultDeals, ...bundledDeals]);
 
       if (mergedDeals.length > savedDeals.length) {
         await saveDeals(mergedDeals);
@@ -433,6 +447,7 @@ const server = createServer(async (request, response) => {
         stock: String(deal.stock || "In stock").trim(),
         color: categoryColors[deal.category] || "#dfe6ea",
         url: String(deal.url || "").trim(),
+        imageUrl: String(deal.imageUrl || "").trim(),
       };
 
       deals = [savedDeal, ...deals];

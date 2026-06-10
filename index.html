@@ -101,7 +101,7 @@
         ]
       }
     </script>
-    <link rel="stylesheet" href="styles.css?v=3" />
+    <link rel="stylesheet" href="styles.css?v=4" />
   </head>
   <body>
     <div class="app-shell">
@@ -151,6 +151,7 @@
             <input name="title" type="text" placeholder="Deal title" required />
             <input name="merchant" type="text" placeholder="Merchant" required />
             <input name="url" type="url" placeholder="Deal URL" />
+            <input name="imageUrl" type="url" placeholder="Image URL" />
             <select name="category" required>
               <option value="Tech">Tech</option>
               <option value="Home">Home</option>
@@ -287,6 +288,7 @@
     <template id="dealCardTemplate">
       <article class="deal-card">
         <div class="deal-media">
+          <img class="deal-image" alt="" loading="lazy" />
           <span class="category-pill"></span>
           <button class="save-button" type="button" aria-label="Save deal">♡</button>
         </div>
@@ -314,6 +316,6 @@
       </article>
     </template>
 
-    <script src="app.js?v=3"></script>
+    <script src="app.js?v=4"></script>
   </body>
 </html>

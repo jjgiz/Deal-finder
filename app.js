@@ -10,6 +10,7 @@ const starterDeals = [
     stock: "Popular gaming deal",
     color: "#dfe6ea",
     url: "https://www.amazon.co.uk/s?k=PlayStation+DualSense+Wireless+Controller",
+    imageUrl: "https://images.unsplash.com/photo-1606813907291-d86efa9b94db?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: 2,
@@ -22,6 +23,7 @@ const starterDeals = [
     stock: "Kitchen appliance watch",
     color: "#f7e5d8",
     url: "https://www.amazon.co.uk/s?k=Ninja+SLUSHi+Frozen+Drinks+Maker",
+    imageUrl: "https://images.unsplash.com/photo-1570222094114-d054a817e56b?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: 3,
@@ -34,6 +36,7 @@ const starterDeals = [
     stock: "Health and grooming pick",
     color: "#f5dfda",
     url: "https://www.amazon.co.uk/s?k=Oral-B+iO2+Electric+Toothbrush",
+    imageUrl: "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: 4,
@@ -46,6 +49,7 @@ const starterDeals = [
     stock: "Home office deal",
     color: "#d9eee5",
     url: "https://www.amazon.co.uk/s?k=MSI+Pro+MP223+22-inch+Full+HD+Monitor",
+    imageUrl: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: 5,
@@ -58,6 +62,7 @@ const starterDeals = [
     stock: "Gift deal watch",
     color: "#fff2d8",
     url: "https://www.amazon.co.uk/s?k=LEGO+Speed+Champions+F1",
+    imageUrl: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: 6,
@@ -70,6 +75,7 @@ const starterDeals = [
     stock: "Kitchen bestseller watch",
     color: "#dbe9f6",
     url: "https://www.amazon.co.uk/s?k=Ninja+Double+Stack+XL+Air+Fryer",
+    imageUrl: "https://images.unsplash.com/photo-1585515320310-259814833e62?auto=format&fit=crop&w=900&q=80",
   },
 ];
 
@@ -185,6 +191,19 @@ function renderDeals(items) {
   items.forEach((deal) => {
     const card = template.content.firstElementChild.cloneNode(true);
     card.style.setProperty("--deal-color", deal.color);
+    const image = card.querySelector(".deal-image");
+    image.alt = deal.title;
+
+    if (deal.imageUrl) {
+      image.src = deal.imageUrl;
+      image.addEventListener("error", () => {
+        image.removeAttribute("src");
+        image.classList.add("hidden");
+      });
+    } else {
+      image.classList.add("hidden");
+    }
+
     card.querySelector(".category-pill").textContent = deal.category;
     card.querySelector("h3").textContent = deal.title;
     card.querySelector(".merchant").textContent = deal.merchant;
