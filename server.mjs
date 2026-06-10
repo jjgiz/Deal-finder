@@ -9,6 +9,8 @@ const dealsFile = process.env.DEALS_FILE || join(process.env.RENDER_DISK_PATH ||
 const leadsFile = process.env.LEADS_FILE || join(process.env.RENDER_DISK_PATH || root, "leads.json");
 const clickFile = process.env.CLICK_FILE || join(process.env.RENDER_DISK_PATH || root, "clicks.json");
 const amazonAssociateTag = process.env.AMAZON_ASSOCIATE_TAG || "";
+const awinPublisherId = process.env.AWIN_PUBLISHER_ID || "";
+const awinAdvertiserId = process.env.AWIN_ADVERTISER_ID || "";
 const clients = new Set();
 
 const defaultDeals = [
@@ -256,6 +258,14 @@ function notFound(response) {
 }
 
 function enrichDealUrl(deal) {
+  if (awinPublisherId && awinAdvertiserId) {
+    const url = new URL("https://www.awin1.com/cread.php");
+    url.searchParams.set("awinmid", awinAdvertiserId);
+    url.searchParams.set("awinaffid", awinPublisherId);
+    url.searchParams.set("ued", deal.url);
+    return url.toString();
+  }
+
   if (!amazonAssociateTag || !deal.url.includes("amazon.co.uk")) {
     return deal.url;
   }

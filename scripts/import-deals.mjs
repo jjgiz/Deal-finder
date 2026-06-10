@@ -223,6 +223,9 @@ console.log(
     {
       feedsChecked: feedUrls.length,
       feedErrors: feedResults.filter((result) => result.status === "rejected").length,
+      errors: feedResults
+        .filter((result) => result.status === "rejected")
+        .map((result) => result.reason.message),
       imported: importedDeals.length,
       saved: nextDeals.length,
       dealsFile,

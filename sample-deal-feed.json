@@ -1,0 +1,59 @@
+{
+  "deals": [
+    {
+      "id": "feed-sony-wh1000xm5",
+      "title": "Sony WH-1000XM5 Wireless Noise Cancelling Headphones",
+      "merchant": "Amazon UK",
+      "category": "Tech",
+      "salePrice": 249,
+      "listPrice": 349,
+      "expiresInHours": 72,
+      "stock": "Audio deal watch",
+      "url": "https://www.amazon.co.uk/s?k=Sony+WH-1000XM5+Wireless+Headphones"
+    },
+    {
+      "id": "feed-instant-pot-duo",
+      "title": "Instant Pot Duo 7-in-1 Electric Pressure Cooker",
+      "merchant": "Amazon UK",
+      "category": "Home",
+      "salePrice": 69.99,
+      "listPrice": 109.99,
+      "expiresInHours": 96,
+      "stock": "Kitchen deal watch",
+      "url": "https://www.amazon.co.uk/s?k=Instant+Pot+Duo+7-in-1"
+    },
+    {
+      "id": "feed-logitech-mx-master",
+      "title": "Logitech MX Master 3S Wireless Mouse",
+      "merchant": "Amazon UK",
+      "category": "Tech",
+      "salePrice": 72.99,
+      "listPrice": 99.99,
+      "expiresInHours": 120,
+      "stock": "Home office pick",
+      "url": "https://www.amazon.co.uk/s?k=Logitech+MX+Master+3S"
+    },
+    {
+      "id": "feed-lego-orchid",
+      "title": "LEGO Icons Orchid Artificial Plant Set",
+      "merchant": "Amazon UK",
+      "category": "Toys",
+      "salePrice": 31.99,
+      "listPrice": 44.99,
+      "expiresInHours": 168,
+      "stock": "Gift deal watch",
+      "url": "https://www.amazon.co.uk/s?k=LEGO+Icons+Orchid"
+    },
+    {
+      "id": "feed-philips-hue-starter",
+      "title": "Philips Hue White and Colour Starter Kit",
+      "merchant": "Amazon UK",
+      "category": "Home",
+      "salePrice": 94.99,
+      "listPrice": 149.99,
+      "expiresInHours": 72,
+      "stock": "Smart home deal",
+      "url": "https://www.amazon.co.uk/s?k=Philips+Hue+Starter+Kit"
+    }
+  ]
+}

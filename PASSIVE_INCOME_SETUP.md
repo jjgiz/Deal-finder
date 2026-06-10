@@ -16,6 +16,16 @@ By default it keeps the current deals. To pull from external JSON feeds, set `DE
 DEAL_FEED_URLS="https://example.com/deals.json,https://example.com/more-deals.json" npm run import:deals
 ```
 
+This repo includes a starter feed you can use to test the full Render cron loop after deploying:
+
+```txt
+https://your-render-app.onrender.com/sample-deal-feed.json
+```
+
+Replace `your-render-app.onrender.com` with the real DealFinder app URL, then add that value to the `DEAL_FEED_URLS` environment variable on the Render cron job.
+
+This starter feed proves the automation works. For real passive updates, replace it with merchant or affiliate-network feed URLs.
+
 The importer accepts feeds shaped like any of these:
 
 ```json
@@ -71,6 +81,17 @@ When you have an Amazon Associates tag, set:
 ```sh
 AMAZON_ASSOCIATE_TAG="yourtag-21"
 ```
+
+If you are using Awin tracking links instead, set these on your Render web service:
+
+```sh
+AWIN_PUBLISHER_ID="your-awin-publisher-id"
+AWIN_ADVERTISER_ID="the-advertiser-id-from-awin"
+```
+
+In Awin, the publisher ID is your account/site ID and the advertiser ID is the programme/merchant ID shown for the approved advertiser. After both values are set, DealFinder's `View deal` button routes through Awin before sending visitors to the retailer.
+
+Use Awin only for advertisers/programmes you have actually been accepted into. If Amazon is handled through Amazon Associates instead of Awin in your account, use `AMAZON_ASSOCIATE_TAG` instead.
 
 ## 4. Make it more passive
 
