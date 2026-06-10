@@ -2,7 +2,7 @@ import { createReadStream } from "node:fs";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { createServer } from "node:http";
 import { dirname, extname, join, normalize } from "node:path";
-import { importDeals } from "./lib/deal-importer.mjs";
+import { importDeals, mergeDeals, normalizeDeal } from "./lib/deal-importer.mjs";
 
 const port = process.env.PORT || 4173;
 const root = process.cwd();
@@ -186,12 +186,31 @@ const defaultDeals = [
   },
 ];
 
+async function loadBundledFeedDeals() {
+  try {
+    const feed = JSON.parse(await readFile(join(root, "sample-deal-feed.json"), "utf8"));
+    const rawDeals = Array.isArray(feed) ? feed : feed.deals || feed.items || feed.products || [];
+    return rawDeals.map(normalizeDeal).filter(Boolean);
+  } catch (error) {
+    console.warn(`Could not load bundled feed deals: ${error.message}`);
+    return [];
+  }
+}
+
 async function loadDeals() {
+  const bundledDeals = await loadBundledFeedDeals();
+
   try {
     const savedDeals = JSON.parse(await readFile(dealsFile, "utf8"));
 
     if (Array.isArray(savedDeals) && savedDeals.length > 0) {
-      return savedDeals;
+      const mergedDeals = mergeDeals(savedDeals, bundledDeals);
+
+      if (mergedDeals.length > savedDeals.length) {
+        await saveDeals(mergedDeals);
+      }
+
+      return mergedDeals;
     }
   } catch (error) {
     if (error.code !== "ENOENT") {
@@ -200,8 +219,9 @@ async function loadDeals() {
   }
 
   console.warn(`No saved deals found in ${dealsFile}; seeding default deals.`);
-  await saveDeals(defaultDeals);
-  return defaultDeals;
+  const seededDeals = mergeDeals(defaultDeals, bundledDeals);
+  await saveDeals(seededDeals);
+  return seededDeals;
 }
 
 async function saveDeals(nextDeals) {
@@ -242,6 +262,7 @@ const contentTypes = {
   ".css": "text/css",
   ".html": "text/html",
   ".js": "text/javascript",
+  ".json": "application/json",
   ".txt": "text/plain",
   ".xml": "application/xml",
 };
