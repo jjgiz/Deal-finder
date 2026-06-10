@@ -54,6 +54,138 @@
       "expiresInHours": 72,
       "stock": "Smart home deal",
       "url": "https://www.amazon.co.uk/s?k=Philips+Hue+Starter+Kit"
+    },
+    {
+      "id": "feed-anker-power-bank",
+      "title": "Anker Power Bank 20,000mAh USB-C",
+      "merchant": "Amazon UK",
+      "category": "Tech",
+      "salePrice": 29.99,
+      "listPrice": 44.99,
+      "expiresInHours": 96,
+      "stock": "Travel tech watch",
+      "url": "https://www.amazon.co.uk/s?k=Anker+Power+Bank+20000mAh+USB-C"
+    },
+    {
+      "id": "feed-fire-tv-stick-4k",
+      "title": "Amazon Fire TV Stick 4K",
+      "merchant": "Amazon UK",
+      "category": "Tech",
+      "salePrice": 34.99,
+      "listPrice": 59.99,
+      "expiresInHours": 120,
+      "stock": "Streaming deal watch",
+      "url": "https://www.amazon.co.uk/s?k=Fire+TV+Stick+4K"
+    },
+    {
+      "id": "feed-echo-dot",
+      "title": "Echo Dot Smart Speaker",
+      "merchant": "Amazon UK",
+      "category": "Tech",
+      "salePrice": 27.99,
+      "listPrice": 54.99,
+      "expiresInHours": 120,
+      "stock": "Smart speaker watch",
+      "url": "https://www.amazon.co.uk/s?k=Echo+Dot"
+    },
+    {
+      "id": "feed-ring-video-doorbell",
+      "title": "Ring Video Doorbell",
+      "merchant": "Amazon UK",
+      "category": "Home",
+      "salePrice": 59.99,
+      "listPrice": 99.99,
+      "expiresInHours": 144,
+      "stock": "Smart home security watch",
+      "url": "https://www.amazon.co.uk/s?k=Ring+Video+Doorbell"
+    },
+    {
+      "id": "feed-shark-cordless-vacuum",
+      "title": "Shark Cordless Vacuum Cleaner",
+      "merchant": "Amazon UK",
+      "category": "Home",
+      "salePrice": 179.99,
+      "listPrice": 279.99,
+      "expiresInHours": 168,
+      "stock": "Cleaning deal watch",
+      "url": "https://www.amazon.co.uk/s?k=Shark+Cordless+Vacuum+Cleaner"
+    },
+    {
+      "id": "feed-corsair-k55-keyboard",
+      "title": "Corsair K55 RGB Gaming Keyboard",
+      "merchant": "Amazon UK",
+      "category": "Tech",
+      "salePrice": 39.99,
+      "listPrice": 59.99,
+      "expiresInHours": 96,
+      "stock": "Gaming accessory watch",
+      "url": "https://www.amazon.co.uk/s?k=Corsair+K55+RGB+Gaming+Keyboard"
+    },
+    {
+      "id": "feed-samsung-t7-ssd",
+      "title": "Samsung T7 Portable SSD 1TB",
+      "merchant": "Amazon UK",
+      "category": "Tech",
+      "salePrice": 74.99,
+      "listPrice": 109.99,
+      "expiresInHours": 96,
+      "stock": "Storage deal watch",
+      "url": "https://www.amazon.co.uk/s?k=Samsung+T7+Portable+SSD+1TB"
+    },
+    {
+      "id": "feed-nespresso-vertuo",
+      "title": "Nespresso Vertuo Coffee Machine",
+      "merchant": "Amazon UK",
+      "category": "Home",
+      "salePrice": 79.99,
+      "listPrice": 149.99,
+      "expiresInHours": 168,
+      "stock": "Coffee machine watch",
+      "url": "https://www.amazon.co.uk/s?k=Nespresso+Vertuo+Coffee+Machine"
+    },
+    {
+      "id": "feed-lego-star-wars",
+      "title": "LEGO Star Wars Building Sets",
+      "merchant": "Amazon UK",
+      "category": "Toys",
+      "salePrice": 34.99,
+      "listPrice": 49.99,
+      "expiresInHours": 168,
+      "stock": "LEGO deal watch",
+      "url": "https://www.amazon.co.uk/s?k=LEGO+Star+Wars+Sets"
+    },
+    {
+      "id": "feed-hot-wheels-track",
+      "title": "Hot Wheels Track Builder Sets",
+      "merchant": "Amazon UK",
+      "category": "Toys",
+      "salePrice": 19.99,
+      "listPrice": 29.99,
+      "expiresInHours": 120,
+      "stock": "Toy deal watch",
+      "url": "https://www.amazon.co.uk/s?k=Hot+Wheels+Track+Builder"
+    },
+    {
+      "id": "feed-adidas-running-shoes",
+      "title": "adidas Running Shoes",
+      "merchant": "Amazon UK",
+      "category": "Fashion",
+      "salePrice": 39.99,
+      "listPrice": 64.99,
+      "expiresInHours": 120,
+      "stock": "Sportswear deal watch",
+      "url": "https://www.amazon.co.uk/s?k=adidas+running+shoes"
+    },
+    {
+      "id": "feed-protein-powder",
+      "title": "Optimum Nutrition Gold Standard Whey",
+      "merchant": "Amazon UK",
+      "category": "Food",
+      "salePrice": 44.99,
+      "listPrice": 59.99,
+      "expiresInHours": 96,
+      "stock": "Fitness nutrition watch",
+      "url": "https://www.amazon.co.uk/s?k=Optimum+Nutrition+Gold+Standard+Whey"
     }
   ]
 }
