@@ -192,16 +192,21 @@ function renderDeals(items) {
     const card = template.content.firstElementChild.cloneNode(true);
     card.style.setProperty("--deal-color", deal.color);
     const image = card.querySelector(".deal-image");
+    const imageNote = card.querySelector(".image-note");
     image.alt = deal.title;
 
     if (deal.imageUrl) {
       image.src = deal.imageUrl;
+      imageNote.textContent = "Representative";
       image.addEventListener("error", () => {
         image.removeAttribute("src");
         image.classList.add("hidden");
+        imageNote.textContent = "";
+        imageNote.classList.add("hidden");
       });
     } else {
       image.classList.add("hidden");
+      imageNote.classList.add("hidden");
     }
 
     card.querySelector(".category-pill").textContent = deal.category;
